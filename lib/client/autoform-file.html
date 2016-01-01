@@ -8,7 +8,8 @@
         {{> Template.dynamic template=uploadProgressTemplate data=file}}
       {{/if}}
     {{else}}
-      {{> Template.dynamic template=selectFileBtnTemplate data=selectFileBtnData}}
+      {{> Template.dynamic template=selectFileBtnTemplate data=label}}
+      <input type="file" class="hidden js-file" accept="{{atts.accept}}">
     {{/if}}
     <input type="hidden" class="js-value" value="{{value}}" data-schema-key="{{schemaKey}}">
   </div>
@@ -31,10 +32,7 @@
 </template>
 
 <template name="afFileSelectFileBtnTemplate">
-  <button type="button" class="btn btn-default af-select-file js-af-select-file">
-    {{label}}
-    <input type="file" class="js-file" accept="{{accept}}">
-  </button>
+  <button type="button" class="btn btn-default js-af-select-file">{{this}}</button>
 </template>
 
 <template name="afFileUploadProgress">
