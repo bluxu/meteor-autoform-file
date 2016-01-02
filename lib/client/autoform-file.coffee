@@ -27,7 +27,10 @@ Template.afFileUpload.onCreated ->
   @_insert = (file) ->
     collection = getCollection self.data
 
-    if Meteor.userId
+    # Needed for metadata
+    file = new FS.File(file)
+
+    if Meteor.userId()
       file.owner = Meteor.userId()
 
     if typeof self.data.atts?.onBeforeInsert is 'function'
@@ -81,15 +84,15 @@ Template.afFileUpload.events
   'change .js-file': (e, t) ->
     t._insert e.target.files[0]
 
-  "dragover .js-af-select-file": (e) ->
+  'dragover .js-af-select-file': (e) ->
     e.stopPropagation()
     e.preventDefault()
 
-  "dragenter .js-af-select-file": (e) ->
+  'dragenter .js-af-select-file': (e) ->
     e.stopPropagation()
     e.preventDefault()
 
-  "drop .js-af-select-file": (e, t) ->
+  'drop .js-af-select-file': (e, t) ->
     e.stopPropagation()
     e.preventDefault()
     t._insert new FS.File e.originalEvent.dataTransfer.files[0]
